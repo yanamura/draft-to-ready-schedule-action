@@ -1,16 +1,20 @@
-name: 'build-test'
+name: 'test'
 on: # rebuild any PRs and main branch changes
-  pull_request:
   push:
     branches:
       - main
       - 'releases/*'
+  schedule:
+    - cron: '0 23 * * *'
 
 jobs:
-  do:
+  test:
+    env:
+      TZ: 'Asia/Tokyo'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
         with:
           github_token: ${{ secrets.BOT_TOKEN }}
+          trigger_title: "[->Ready]"

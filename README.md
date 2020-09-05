@@ -14,6 +14,8 @@ jobs:
       with: 
         ### GitHub token which have a permission to write repository (Can't use GITHUB_TOKEN).(required)
         github_token: ${{ secrets.BOT_TOKEN }}
+        ### change draft to ready only when PullRequest contains trigger_title
+        trigger_title: "[reseration posting]"
 ```
 
 ## How set GitHub token
