@@ -1416,10 +1416,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
+const octokit = github.getOctokit(core.getInput('github_token'));
+function toReady(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        core.info(`${id}`);
+        yield octokit.graphql(`
+    mutation($id: ID!) {
+      markPullRequestReadyForReview(input: {pullRequestId: $id}) {
+         pullRequest {
+           number
+         }
+      }
+    }
+    `, {
+            id
+        });
+    });
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const octokit = github.getOctokit(core.getInput('github_token'));
             core.info('get list');
             const { data: pullRequests } = yield octokit.pulls.list(Object.assign(Object.assign({}, github.context.repo), { state: 'open' }));
             core.info(`pr num: ${pullRequests.length}`);
@@ -1427,14 +1443,9 @@ function run() {
                 return pullRequest.draft;
             });
             core.info(`draft pr num: ${draftPullRequests.length}`);
-            /*const ms: string = core.getInput(''')
-            core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-        
-            core.debug(new Date().toTimeString())
-            await wait(parseInt(ms, 10))
-            core.debug(new Date().toTimeString())
-        
-            core.setOutput('time', new Date().toTimeString())*/
+            for (const pullRequest of draftPullRequests) {
+                yield toReady(pullRequest.node_id);
+            }
         }
         catch (error) {
             core.setFailed(error.message);
