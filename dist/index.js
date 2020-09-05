@@ -1413,17 +1413,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(186));
-const github_1 = __importDefault(__webpack_require__(438));
+const github = __importStar(__webpack_require__(438));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const octokit = github_1.default.getOctokit(core.getInput('github_token'));
-            const { data: pullRequestList } = yield octokit.pulls.list(Object.assign(Object.assign({}, github_1.default.context.repo), { state: 'open' }));
+            const octokit = github.getOctokit(core.getInput('github_token'));
+            const { data: pullRequestList } = yield octokit.pulls.list(Object.assign(Object.assign({}, github.context.repo), { state: 'open' }));
             core.debug(pullRequestList.toString());
             /*const ms: string = core.getInput(''')
             core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
