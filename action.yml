@@ -1,6 +1,6 @@
-name: 'Yasuharu Yanamura'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Draft PullRequest to Ready'
+description: 'change Pull Request draft to ready'
+author: 'Yasuharu Yanamura'
 inputs:
   github_token:
     required: true
