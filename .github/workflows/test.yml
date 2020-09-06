@@ -1,11 +1,11 @@
 name: 'test'
-on: # rebuild any PRs and main branch changes
+on:
   push:
     branches:
       - main
       - 'releases/*'
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0 21 * * 0-4'
 
 jobs:
   test:

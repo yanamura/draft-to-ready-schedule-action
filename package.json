@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "draft-to-ready-schedule-action",
+  "version": "1.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "change Pull Request draft to ready on  a scheduled day",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",

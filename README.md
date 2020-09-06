@@ -1,12 +1,13 @@
-# Draft Pull Request to Ready
+# Draft to Ready schedule action
 
-This action make PUll Request `draft` to `Ready for Review`.
+This action make Pull Request `draft` to `Ready for Review` on a scheduled day.
 
 ## Usage
 
 ```yaml
 on:
   schedule:
+    # schedule setting is required.
     - cron:  '0 * * * *'
 jobs:
   to-ready:
@@ -16,7 +17,7 @@ jobs:
         github_token: ${{ secrets.BOT_TOKEN }}
 ```
 
-In your pull requests, add a line to the end of the pull request description look looking like this
+In your pull requests, add a line to the end of the pull request description like this
 
 ```
 /schedule 2020-11-01

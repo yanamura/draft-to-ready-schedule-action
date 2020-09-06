@@ -1,5 +1,5 @@
-name: 'Draft PullRequest to Ready'
-description: 'change Pull Request draft to ready'
+name: 'Draft to Ready schedule action'
+description: 'change Pull Request draft to ready on  a scheduled day'
 author: 'Yasuharu Yanamura'
 inputs:
   github_token:
