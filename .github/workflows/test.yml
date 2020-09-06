@@ -5,16 +5,13 @@ on: # rebuild any PRs and main branch changes
       - main
       - 'releases/*'
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '*/15 * * * *'
 
 jobs:
   test:
-    env:
-      TZ: 'Asia/Tokyo'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
         with:
           github_token: ${{ secrets.BOT_TOKEN }}
-          trigger_title: "[->Ready]"

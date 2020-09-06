@@ -1433,32 +1433,34 @@ function toReady(id) {
         });
     });
 }
-function changeTitle(pullNumber, title) {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield octokit.pulls.update(Object.assign(Object.assign({}, github.context.repo), { pull_number: pullNumber, title }));
-    });
-}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             core.info('get list');
             const { data: pullRequests } = yield octokit.pulls.list(Object.assign(Object.assign({}, github.context.repo), { state: 'open' }));
             core.info(`pr num: ${pullRequests.length}`);
-            const triggerTitle = core.getInput('trigger_title');
-            core.info(`trigger_title: ${triggerTitle}`);
             const draftPullRequests = pullRequests.filter(pullRequest => {
-                return pullRequest.draft && pullRequest.title.includes(triggerTitle);
+                return pullRequest.draft && hasScheduleCommand(pullRequest.body);
             });
             core.info(`draft pr num: ${draftPullRequests.length}`);
             for (const pullRequest of draftPullRequests) {
-                yield toReady(pullRequest.node_id);
-                yield changeTitle(pullRequest.number, pullRequest.title.replace(triggerTitle, ''));
+                const scheduleDate = getScheduleDateString(pullRequest.body);
+                if (scheduleDate && new Date(scheduleDate) < new Date()) {
+                    yield toReady(pullRequest.node_id);
+                }
             }
         }
         catch (error) {
             core.setFailed(error.message);
         }
     });
+}
+function hasScheduleCommand(pullRequestBody) {
+    return /(^|\n)\/schedule /.test(pullRequestBody);
+}
+function getScheduleDateString(text) {
+    var _a;
+    return (_a = text.match(/(^|\n)\/schedule (.*)/)) === null || _a === void 0 ? void 0 : _a.pop();
 }
 run();
 

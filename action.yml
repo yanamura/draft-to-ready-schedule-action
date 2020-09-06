@@ -5,9 +5,6 @@ inputs:
   github_token:
     required: true
     description: 'GitHub token(require pull request write permission. dont use GITHUB_TOKEN)'
-  trigger_title:
-    required: true
-    description: 'change draft to ready only when PullRequest contains trigger_title'
 runs:
   using: 'node12'
   main: 'dist/index.js'
