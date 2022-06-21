@@ -25,12 +25,12 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.0"
+    "@actions/github": "^5.0.3"
   },
   "devDependencies": {
     "@types/node": "^17.0.8",
     "@typescript-eslint/parser": "^4.33.0",
-    "@vercel/ncc": "^0.33.1",
+    "@vercel/ncc": "^0.34.0",
     "eslint": "^7.32.0",
     "eslint-plugin-github": "^4.3.2",
     "js-yaml": "^4.1.0",
